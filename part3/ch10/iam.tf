@@ -159,7 +159,6 @@ resource "aws_iam_role_policy_attachment" "cortex_auto_scale_role_attach" {
     policy_arn = aws_iam_policy.cortex_auto_scale_policy.arn
 }
 
-
 resource "aws_iam_instance_profile" "cortex_auto_scale_role_profile" {
     name = "cortex_auto_scale_role_profile"
     role = aws_iam_role.cortex_auto_scale_role.name
