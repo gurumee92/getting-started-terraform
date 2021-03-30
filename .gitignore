@@ -2,3 +2,4 @@
 **/.terraform.lock*
 *.tfstate
 *.backup
+*.pem
