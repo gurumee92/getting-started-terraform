@@ -120,114 +120,114 @@ resource "aws_route" "private_rt_route" {
     nat_gateway_id              = aws_nat_gateway.ngw.id
 }
 
-# network acl
-resource "aws_default_network_acl" "vpc_network_acl" {
-    default_network_acl_id = aws_vpc.vpc.default_network_acl_id
+# # network acl
+# resource "aws_default_network_acl" "vpc_network_acl" {
+#     default_network_acl_id = aws_vpc.vpc.default_network_acl_id
     
-    egress {
-        protocol   = "tcp"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 65535
-    }
+#     egress {
+#         protocol   = "tcp"
+#         rule_no    = 100
+#         action     = "allow"
+#         cidr_block = "0.0.0.0/0"
+#         from_port  = 0
+#         to_port    = 65535
+#     }
 
-    ingress {
-        protocol   = "-1"
-        rule_no    = 100
-        action     = "allow"
-        cidr_block = "0.0.0.0/0"
-        from_port  = 0
-        to_port    = 0
-    }
+#     ingress {
+#         protocol   = "-1"
+#         rule_no    = 100
+#         action     = "allow"
+#         cidr_block = "0.0.0.0/0"
+#         from_port  = 0
+#         to_port    = 0
+#     }
 
-    tags = {
-        Name = "network acl"
-    }
-}
+#     tags = {
+#         Name = "network acl"
+#     }
+# }
 
-# security group
-resource "aws_default_security_group" "default_sg" {
-    vpc_id = aws_vpc.vpc.id
+# # security group
+# resource "aws_default_security_group" "default_sg" {
+#     vpc_id = aws_vpc.vpc.id
 
-    ingress {
-        protocol    = "tcp"
-        from_port = 0
-        to_port   = 65535
-        cidr_blocks = [aws_vpc.vpc.cidr_block]
-    }
+#     ingress {
+#         protocol    = "tcp"
+#         from_port = 0
+#         to_port   = 65535
+#         cidr_blocks = [aws_vpc.vpc.cidr_block]
+#     }
 
-    egress {
-        protocol    = "-1"
-        from_port   = 0
-        to_port     = 0
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+#     egress {
+#         protocol    = "-1"
+#         from_port   = 0
+#         to_port     = 0
+#         cidr_blocks = ["0.0.0.0/0"]
+#     }
 
-    tags = {
-        Name = "default_sg"
-        Description = "default security group"
-    }
-}
+#     tags = {
+#         Name = "default_sg"
+#         Description = "default security group"
+#     }
+# }
 
-resource "aws_security_group" "inhouse_sg" {
-    name        = "pinhouse_sg"
-    description = "security group for inhouse"
-    vpc_id      = aws_vpc.vpc.id
+# resource "aws_security_group" "inhouse_sg" {
+#     name        = "pinhouse_sg"
+#     description = "security group for inhouse"
+#     vpc_id      = aws_vpc.vpc.id
 
-    ingress {
-        description = "For Inhouse ingress"
-        from_port   = 0
-        to_port     = 65535
-        protocol    = "tcp"
-        cidr_blocks = [
-            aws_vpc.vpc.cidr_block,
-            "121.161.72.112/32",
-        ]
-    }
+#     ingress {
+#         description = "For Inhouse ingress"
+#         from_port   = 0
+#         to_port     = 65535
+#         protocol    = "tcp"
+#         cidr_blocks = [
+#             aws_vpc.vpc.cidr_block,
+#             "121.161.72.112/32",
+#         ]
+#     }
 
-    egress {
-        protocol    = "-1"
-        from_port   = 0
-        to_port     = 0
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+#     egress {
+#         protocol    = "-1"
+#         from_port   = 0
+#         to_port     = 0
+#         cidr_blocks = ["0.0.0.0/0"]
+#     }
 
-    tags = {
-        Name = "inhouse_sg"
-    }
-}
+#     tags = {
+#         Name = "inhouse_sg"
+#     }
+# }
 
-resource "aws_security_group" "web_server_sg" {
-    name        = "web_server_sg"
-    description = "security group for web server"
-    vpc_id      = aws_vpc.vpc.id
+# resource "aws_security_group" "web_server_sg" {
+#     name        = "web_server_sg"
+#     description = "security group for web server"
+#     vpc_id      = aws_vpc.vpc.id
 
-    ingress {
-        description = "For http port"
-        from_port   = 80
-        to_port     = 80
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+#     ingress {
+#         description = "For http port"
+#         from_port   = 80
+#         to_port     = 80
+#         protocol    = "tcp"
+#         cidr_blocks = ["0.0.0.0/0"]
+#     }
 
-    ingress {
-        description = "For https port"
-        from_port   = 443
-        to_port     = 443
-        protocol    = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+#     ingress {
+#         description = "For https port"
+#         from_port   = 443
+#         to_port     = 443
+#         protocol    = "tcp"
+#         cidr_blocks = ["0.0.0.0/0"]
+#     }
 
-    egress {
-        protocol    = "-1"
-        from_port   = 0
-        to_port     = 0
-        cidr_blocks = ["0.0.0.0/0"]
-    }
+#     egress {
+#         protocol    = "-1"
+#         from_port   = 0
+#         to_port     = 0
+#         cidr_blocks = ["0.0.0.0/0"]
+#     }
 
-    tags = {
-        Name = "web_server_sg"
-    }
-}
+#     tags = {
+#         Name = "web_server_sg"
+#     }
+# }
